@@ -25,12 +25,12 @@ class _QCCommon(object):
             self._verbosity = 2
 
     def print_info(self, string):
-        """Do print based on verbosity level >= 1"""
+        """Do print based on verbosity level >= 1."""
         if self._verbosity > 0:
             print("INFO  >>", string)
 
     def print_debug(self, string):
-        """Do debug print based on verbosity level >= 2"""
+        """Do debug print based on verbosity level >= 2."""
         if self._verbosity > 1:
             print("DEBUG >>", string)
 
@@ -40,8 +40,8 @@ class _QCCommon(object):
         print("WARN  >>", string)
 
     @staticmethod
-    def force_stop(string):
-        """Give stop message to STDERR and stop process"""
+    def force_stop(string, do_quit=True):
+        """Give stop message to STDERR and optionally stop process."""
         mode = sys.stderr
         print()
         print("!" * 70, file=mode)
@@ -49,4 +49,5 @@ class _QCCommon(object):
         print("!" * 70, file=mode)
         print()
 
-        sys.exit(string)
+        if do_quit:
+            sys.exit(string)
