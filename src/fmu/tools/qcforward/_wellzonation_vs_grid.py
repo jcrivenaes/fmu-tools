@@ -7,6 +7,7 @@ from pathlib import Path
 
 import json
 from jsonschema import validate
+from jsonschema.exceptions import ValidationError
 import numpy as np
 
 import fmu.tools
@@ -199,7 +200,15 @@ class WellZonationVsGrid(QCForward):
         with open((spath / schemafile), "r") as thisschema:
             schema = json.load(thisschema)
 
-        validate(instance=data, schema=schema)
+        try:
+            validate(instance=data, schema=schema)
+        except ValidationError as verr:
+            if "'Zone' is not of type 'array'" in str(verr):
+                QCC.force_stop(
+                    "Key 'gridprops' must be in double brackets: [[ZNAME, ZFILE]]",
+                    do_quit=False,
+                )
+            raise
 
     def _evaluate_wells(self):
         """Do a check per well and the sum; return an Ordered Dict"""
