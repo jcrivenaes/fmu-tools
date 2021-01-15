@@ -108,7 +108,7 @@ class QCData(object):
         if isinstance(reuse, bool):
             reuse = ["grid", "gridprops", "wells"] if reuse else []
 
-        self.set_path(data.get("path"))
+        self.set_path(data.get("path", "."))
         self.parse_project(project)
 
         if "grid" in data:
