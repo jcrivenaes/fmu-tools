@@ -19,6 +19,8 @@ on:
 jobs:
   fmu-tools:
     runs-on: ubuntu-latest
+    # do not run schedule on forks
+    if: (github.event_name == "schedule" && github.repository == "equinor/fmu-tools") || (github.event_name != "schedule")
     strategy:
       matrix:
         python-version: ["3.6", "3.7", "3.8"]
