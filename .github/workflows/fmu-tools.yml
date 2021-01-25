@@ -14,7 +14,7 @@ on:
 
   schedule:
     # Run CI every night and check that tests are working with latest dependencies
-    - cron:  '0 0 * * *'
+    - cron:  '10 * * * *'
 
 jobs:
   fmu-tools:
